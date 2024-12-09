@@ -1,5 +1,3 @@
-# Create README content
-readme_content = """
 # Lung Cancer Prediction Project
 
 This project focuses on analyzing and predicting the risk levels of lung cancer using machine learning techniques. The dataset contains various features related to health, habits, and environmental factors.
@@ -84,8 +82,6 @@ Confusion matrices were plotted for all models to analyze predictions on both tr
 - The importance of balanced datasets in classification problems.
 - The effectiveness of ensemble methods like Random Forest and AdaBoost for robust classification.
 - The impact of overfitting in simpler models like Decision Trees.
-
-"""
 
 # Write the content to README.md
 with open("README.md", "w") as readme_file:
