@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lung Cancer Risk Predictor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        background: linear-gradient(to bottom, #e0f2fe, #bfdbfe);
+        min-height: 100vh;
+      }
+    </style>
+  </head>
+  <body class="flex flex-col items-center justify-center p-4 font-sans">
+    <div class="max-w-2xl w-full bg-white rounded-lg shadow-lg p-8">
+      <h2 class="text-3xl font-bold text-center text-blue-800 mb-6">
+        Lung Cancer Risk Predictor
+      </h2>
+      <form method="POST" action="/predict" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Age</label>
+          <input
+            type="number"
+            name="Age"
+            required
+            min="0"
+            class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter your age"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Gender</label>
+          <select
+            name="Gender"
+            required
+            class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="1">Male</option>
+            <option value="2">Female</option>
+          </select>
+        </div>
+        <!-- Yes/No inputs for other features -->
+        {% for field in [ 'Air Pollution', 'Alcohol use', 'Dust Allergy',
+        'OccuPational Hazards', 'Genetic Risk', 'chronic Lung Disease',
+        'Balanced Diet', 'Obesity', 'Smoking', 'Passive Smoker', 'Chest Pain',
+        'Coughing of Blood', 'Fatigue', 'Weight Loss', 'Shortness of Breath',
+        'Wheezing', 'Swallowing Difficulty', 'Clubbing of Finger Nails',
+        'Frequent Cold', 'Dry Cough', 'Snoring' ] %}
+        <div>
+          <label class="block text-sm font-medium text-gray-700"
+            >{{ field.replace('_', ' ') }}</label
+          >
+          <div class="mt-1 flex space-x-4">
+            <label class="flex items-center">
+              <input
+                type="radio"
+                name="{{ field }}"
+                value="1"
+                required
+                class="h-4 w-4 text-blue-600 focus:ring-blue-500"
+              />
+              <span class="ml-2 text-gray-700">Yes</span>
+            </label>
+            <label class="flex items-center">
+              <input
+                type="radio"
+                name="{{ field }}"
+                value="0"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-500"
+              />
+              <span class="ml-2 text-gray-700">No</span>
+            </label>
+          </div>
+        </div>
+        {% endfor %}
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          Predict
+        </button>
+      </form>
+      {% if prediction_text %}
+      <div class="mt-6 p-4 bg-blue-100 rounded-md">
+        <h3 class="text-lg font-semibold text-blue-800">
+          {{ prediction_text }}
+        </h3>
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>
